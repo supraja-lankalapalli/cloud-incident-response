@@ -1,72 +1,106 @@
-# AWS Cloud Incident Response & IAM Security Lab
+# AWS Cloud Incident Response
 
 ## About This Project
 
-I built this project to get hands-on experience with AWS security monitoring,
-incident investigation, and IAM access control.
+I created this project to practice how security incidents and unauthorized activities can be investigated in an AWS environment.
 
-Instead of only learning AWS security concepts, I created a small AWS
-environment where I could generate activity, investigate it through
-CloudTrail, and test how IAM permissions affect what a user can do.
+Instead of only learning AWS security concepts, I wanted to perform the actions myself, review what AWS recorded, and understand how IAM permissions and CloudTrail can help during an investigation.
 
-The project contains two security cases based on activities I performed
-inside my AWS environment.
+For this project, I used the AWS environment that I had already built and secured in my previous cloud security project.
 
-## What I Worked With
+---
 
-- AWS CloudTrail
+## What I Worked On
+
+In this project, I focused on two security investigations.
+
+### CS-001 – CloudTrail Console Login Investigation
+
+I used AWS CloudTrail to investigate a console login event.
+
+I reviewed the event details to understand what information AWS records during authentication, including the event time, source IP address, AWS Region, event source, and request information.
+
+This helped me understand how CloudTrail can be used to investigate account activity.
+
+### CS-002 – IAM Least Privilege Investigation
+
+For this case, I used a Developer IAM user with limited permissions.
+
+The user was able to view EC2 resources, but I tested whether the same user could perform a write action by attempting to stop an EC2 instance.
+
+AWS denied the action.
+
+I then investigated the event in CloudTrail and found the `StopInstances` event with the error:
+
+`Client.UnauthorizedOperation`
+
+I reviewed the Developer user's IAM permissions and confirmed that the user had `AmazonEC2ReadOnlyAccess` through the Developers group along with the `SecurityAudit` policy.
+
+This helped me understand how IAM least privilege and CloudTrail work together during a security investigation.
+
+---
+
+## AWS Services Used
+
 - AWS IAM
+- AWS CloudTrail
 - Amazon EC2
-- IAM users and groups
-- AWS managed policies
-- Least-privilege access
-- CloudTrail event history
-- Access-denied investigation
+
+---
+
+## Security Skills Practiced
+
+- Cloud incident investigation
+- AWS audit log analysis
+- IAM least privilege
+- Authentication monitoring
+- Unauthorized API activity investigation
+- Security event validation
+- Evidence collection
+- Incident documentation
+
+---
 
 ## Security Cases
 
-### CS-001 — CloudTrail Console Login Investigation
+Detailed investigation notes are available in the `security-cases` folder:
 
-In this case, I configured AWS CloudTrail and used the event history to
-investigate console login activity.
+- `CS-001-CloudTrail-Console-Login-Investigation.md`
+- `CS-002-IAM-Least-Privilege-Investigation.md`
 
-I reviewed the event details to understand who performed the activity,
-when it happened, and where the request came from.
-
-[View CS-001 Investigation](security-cases/CS-001-CloudTrail-Console-Login-Investigation.md)
-
-### CS-002 — IAM Least-Privilege Investigation
-
-In this case, I created a Developer IAM user with limited EC2 permissions.
-
-I tested the permissions by attempting to stop an EC2 instance. The action
-was denied because the Developer user did not have permission to stop
-instances.
-
-I then investigated the denied StopInstances event in CloudTrail and
-confirmed that the action was blocked by IAM.
-
-[View CS-002 Investigation](security-cases/CS-002-IAM-Least-Privilege-Investigation.md)
-
-## What I Learned
-
-Through this project, I practiced how to:
-
-- Configure CloudTrail for AWS activity logging
-- Investigate AWS console activity
-- Review CloudTrail event details
-- Work with IAM users, groups, and policies
-- Apply least-privilege permissions
-- Investigate denied AWS API actions
-- Connect IAM permissions with CloudTrail evidence
+---
 
 ## Project Evidence
 
-Screenshots from the AWS environment are included in the `screenshots`
-folder to show the configuration, testing, and investigation steps.
+I included screenshots from my AWS environment in the `screenshots` folder to show the configurations and investigation results used in each case.
 
-## Future Development
+The evidence includes:
 
-As I continue learning cloud security, I plan to expand this project with
-additional monitoring and incident-response scenarios when they add
-meaningful security value.
+- IAM security permissions
+- CloudTrail configuration
+- CloudTrail Event History
+- Console login investigation
+- Developer access denial
+- Unauthorized `StopInstances` CloudTrail event
+- Developer IAM permissions
+
+---
+
+## What I Learned
+
+This project helped me understand that incident response is not only about seeing an error or alert. I need to investigate what happened, identify which user performed the action, review the permissions involved, and use logs to confirm the activity.
+
+The most useful part for me was seeing how CloudTrail and IAM work together. IAM controls what a user is allowed to do, while CloudTrail gives me the evidence to investigate what the user attempted to do.
+
+---
+
+## Future Enhancements
+
+This project currently focuses on IAM access control and CloudTrail-based investigation.
+
+If I work on similar cloud security projects in the future, I may explore additional AWS security services such as:
+
+- Amazon GuardDuty for threat detection
+- VPC Flow Logs for network traffic investigations
+- AWS Config for configuration monitoring
+- Amazon Security Hub for centralized security findings
