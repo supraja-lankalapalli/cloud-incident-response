@@ -1,12 +1,12 @@
 # CS-002: IAM Least Privilege Investigation
 
-## What I wanted to test
+## Objective
 
 I wanted to check what happens when an IAM user has limited permissions and tries to perform an action that is not allowed.
 
 For this test, I used the Developer IAM user.
 
-## What I did
+## What I Did
 
 I logged in to AWS as the Developer user and checked the EC2 instances.
 
@@ -24,17 +24,17 @@ CloudTrail recorded the StopInstances attempt from the Developer user.
 
 The event showed:
 
-- Event name: StopInstances
-- User: Developer
-- AWS Region: us-east-2
-- Error code: Client.UnauthorizedOperation
-- Read-only: false
+* Event name: StopInstances
+* User: Developer
+* AWS Region: us-east-2
+* Error code: Client.UnauthorizedOperation
+* Read-only: false
 
 I then checked the Developer user's IAM permissions.
 
 The Developer user had AmazonEC2ReadOnlyAccess through the Developers group and SecurityAudit attached directly.
 
-## What I found
+## What I Found
 
 The Developer user could view EC2 resources but could not stop the EC2 instance.
 
@@ -44,11 +44,11 @@ CloudTrail also gave me evidence of the denied StopInstances attempt, which help
 
 ## Evidence
 
-- 05-developer-access-denied.png
-- 06-cloudtrail-stopinstances-denied.png
-- 07-developer-permissions.png
+* 05-developer-access-denied.png
+* 06-cloudtrail-stopinstances-denied.png
+* 07-developer-permissions.png
 
-## What I learned
+## What I Learned
 
 This case helped me understand how IAM permissions and CloudTrail can be used together during an investigation.
 

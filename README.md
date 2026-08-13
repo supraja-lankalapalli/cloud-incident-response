@@ -91,16 +91,3 @@ The evidence includes:
 This project helped me understand that incident response is not only about seeing an error or alert. I need to investigate what happened, identify which user performed the action, review the permissions involved, and use logs to confirm the activity.
 
 The most useful part for me was seeing how CloudTrail and IAM work together. IAM controls what a user is allowed to do, while CloudTrail gives me the evidence to investigate what the user attempted to do.
-
----
-
-## Future Enhancements
-
-This project currently focuses on IAM access control and CloudTrail-based investigation.
-
-If I work on similar cloud security projects in the future, I may explore additional AWS security services such as:
-
-- Amazon GuardDuty for threat detection
-- VPC Flow Logs for network traffic investigations
-- AWS Config for configuration monitoring
-- Amazon Security Hub for centralized security findings
